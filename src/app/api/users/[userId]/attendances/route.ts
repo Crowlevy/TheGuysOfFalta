@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db/prisma";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { authOptions } from "@/lib/auth/auth-options";
 
 export async function GET(
   request: Request,
@@ -25,8 +25,8 @@ export async function GET(
       where: {
         userId: params.userId,
         date: {
-          gte: new Date(start),
-          lte: new Date(end),
+          gte: new Date(start).toISOString(),
+          lte: new Date(end).toISOString(),
         },
       },
       orderBy: {
